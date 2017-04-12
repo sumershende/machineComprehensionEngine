@@ -75,8 +75,7 @@ forest = RandomForestClassifier(n_estimators = 100)
 
 # Fit the forest to the training set, using the bag of words as 
 # features and the sentiment labels as the response variable
-#
-# This may take a few minutes to run
+
 forest = forest.fit( train_data_features, train["sentiment"] )
 
 
@@ -118,7 +117,7 @@ output = pd.DataFrame( data={"id":test["id"], "sentiment":result} )
 output.to_csv( "Bag_of_Words_model.csv", index=False, quoting=3 )
 
 
-# In[ ]:
+
 
 
 
