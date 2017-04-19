@@ -1,4 +1,5 @@
 import json
+from tensorflowglove import tf_glove
 from nltk.tokenize import RegexpTokenizer
 
 ### Convert from JSON to glove vector
