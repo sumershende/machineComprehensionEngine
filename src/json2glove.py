@@ -7,16 +7,17 @@ from nltk.tokenize import RegexpTokenizer
 
 def read_json_data(json_data):
 	for i in range(len(json_data)):
-		print(json_data[i]["title"])
+		#print(json_data[i]["title"])
 		for j in range(len(json_data[i]["paragraphs"])):
 			#print(json_data[i]["paragraphs"][j]["context"])
-			print(tokenizer.tokenize(json_data[i]["paragraphs"][j]["context"]))
+			#print(tokenizer.tokenize(json_data[i]["paragraphs"][j]["context"]))
 			paragraphs.append(tokenizer.tokenize(json_data[i]["paragraphs"][j]["context"]))
 			para_count.append(len(json_data[i]["paragraphs"][j]["qas"]))
 			
 			for k in range(len(json_data[i]["paragraphs"][j]["qas"])):
-				questions.append(str(json_data[i]["paragraphs"][j]["qas"][k]["question"]))
-				answers.append(str(json_data[i]["paragraphs"][j]["qas"][k]["answers"][0]["text"]))
+				questions.append(tokenizer.tokenize(str(json_data[i]["paragraphs"][j]["qas"][k]["question"])))
+				answers.append(tokenizer.tokenize(str(json_data[i]["paragraphs"][j]["qas"][k]["answers"][0]["text"])))
+				qas_count.append(j)
 			#	print("\t" + str(json_data[i]["paragraphs"][j]["qas"][k]["question"]))
 			#	print("\t" + str(json_data[i]["paragraphs"][j]["qas"][k]["answers"][0]["text"]))
 			#	print()
@@ -33,6 +34,7 @@ paragraphs = []
 para_count = []
 questions = []
 answers = []
-qas_
+qas_count = []
 read_json_data(json_data["data"])
+print(questions[0])
 
