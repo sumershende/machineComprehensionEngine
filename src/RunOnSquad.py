@@ -11,7 +11,8 @@ from keras import layers
 from keras.layers import recurrent
 from keras.models import Model
 from keras.preprocessing.sequence import pad_sequences
-from src import preprocess
+import preprocess
+import preprocessTrain
 
 def tokenize(sent):
     '''Return the tokens of a sentence including punctuation.
@@ -107,9 +108,9 @@ def vectorize_output(data, word_idx,story_maxlen):
 
 
 RNN = recurrent.LSTM
-EMBED_HIDDEN_SIZE = 300
-SENT_HIDDEN_SIZE = 200
-QUERY_HIDDEN_SIZE = 200
+EMBED_HIDDEN_SIZE = 500
+SENT_HIDDEN_SIZE = 500
+QUERY_HIDDEN_SIZE = 500
 BATCH_SIZE = 256
 EPOCHS = 10
 
@@ -143,7 +144,7 @@ challenge = 'tasks_1-20_v1-2/en/qa2_two-supporting-facts_{}.txt'
 """train = get_stories(open('C:\\Users\\Ash\\Documents\\GitHub\\CSC-522-ALDA-IDLE-Minds\\data\\small.txt'))
 test = get_stories(open('C:\\Users\\Ash\\Documents\\GitHub\\CSC-522-ALDA-IDLE-Minds\\data\\small.txt'))
 """
-json_file = "../train-v1.1.json"
+json_file = "train-v1.1.json"
 json_data = preprocess.open_json_file(json_file)
 #print(json_data)
 train = get_stories(json_data)
@@ -213,9 +214,10 @@ for e in range(EPOCHS):
 
         batch_X, batch_XQ, batch_y = batches(train, i, word_idx, story_maxlen, query_maxlen)
         #model.train_on_batch([batch_X,batch_XQ], batch_y)
-        model.fit([batch_X,batch_XQ], batch_y,batch_size=BATCH_SIZE,epochs=1,validation_split=0.05)
+        model.fit([batch_X,batch_XQ], batch_y,batch_size=BATCH_SIZE,epochs=50,validation_split=0.05)
         i = i + 1
         print(i)
+	model.evaluate(preprocessTrain.getTrainQ(),preprocessTrain.getTrainA(),batch_size=BATCH_SIZE)
 
 batch_X,batch_XQ, batch_y = batches(train,0,word_idx,story_maxlen,query_maxlen)
 
